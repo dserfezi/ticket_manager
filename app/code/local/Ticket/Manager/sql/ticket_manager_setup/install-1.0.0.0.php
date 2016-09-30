@@ -51,7 +51,7 @@ $table = $installer->getConnection()
 
     ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null,
         array(
-            'nullable' => false,
+            'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
         ), 'Created at')
 
     // There is no updated_at column because messages have no edit functionality
@@ -85,7 +85,7 @@ $table = $installer->getConnection()
 
     ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null,
         array(
-            'nullable' => false,
+            'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
         ), 'Created at')
 
     // There is no updated_at column because replies have no edit functionality

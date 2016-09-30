@@ -69,7 +69,8 @@ class Ticket_Manager_Block_Adminhtml_Ticket_Edit_Form extends Mage_Adminhtml_Blo
             'disabled'  => 'disabled'
         ));
 
-        $fieldset->addField('active', 'text', array(
+        $fieldset->addType('type_active', 'Ticket_Manager_Block_Adminhtml_Ticket_Renderers_Form_Active');
+        $fieldset->addField('active', 'type_active', array(
             'name'      => 'active',
             'value'     => $ticket->getActive(),
             'label'     => Mage::helper('ticket_manager')->__('Active'),
@@ -77,7 +78,6 @@ class Ticket_Manager_Block_Adminhtml_Ticket_Edit_Form extends Mage_Adminhtml_Blo
             'required'  => true,
             'disabled'  => 'disabled'
         ));
-
 
         /**
          * Replies fields
@@ -87,29 +87,26 @@ class Ticket_Manager_Block_Adminhtml_Ticket_Edit_Form extends Mage_Adminhtml_Blo
             'class'     => 'fieldset-wide',
         ));
 
-        foreach ($replies as $replyIncrement => $reply) {
+        $fieldset->addType('text_view', 'Ticket_Manager_Block_Adminhtml_Ticket_Renderers_Form_Textview');
+        $fieldset->addType('textarea_view', 'Ticket_Manager_Block_Adminhtml_Ticket_Renderers_Form_Textareaview');
 
-            $fieldset->addField('owner'.$replyIncrement, 'text', array(
-                'name'      => 'owner'.$replyIncrement,
-                'value'     => ($reply->getOwner()) ? 'Admin' : 'Customer',
-                'label'     => Mage::helper('ticket_manager')->__('Reply'),
-                'title'     => Mage::helper('ticket_manager')->__('Reply'),
-                'disabled'  => 'disabled'
+
+        $replyIncrement = 1;
+        foreach ($replies as $replyKey => $reply) {
+
+            $fieldset->addField('owner_and_time'.$replyKey, 'text_view', array(
+                'name'      => 'owner_and_time'.$replyKey,
+                'value'     => (($reply->getOwner()) ? 'Admin' : 'Customer') . ' ' . $reply->getCreatedAt(),
+                'label'     => Mage::helper('ticket_manager')->__('Reply #%s', $replyIncrement),
+                'title'     => Mage::helper('ticket_manager')->__('Reply #%s', $replyIncrement)
             ));
 
-            $fieldset->addField('reply'.$replyIncrement, 'textarea', array(
+            $fieldset->addField('reply'.$replyIncrement, 'textarea_view', array(
                 'name'      => 'reply'.$replyIncrement,
-                'value'     => $reply->getReply(),
-                'required'  => true,
-                'disabled'  => 'disabled'
+                'value'     => $reply->getReply()
             ));
 
-            $fieldset->addField('created_at'.$replyIncrement, 'text', array(
-                'name'      => 'created_at'.$replyIncrement,
-                'value'     => $reply->getCreatedAt(),
-                'required'  => true,
-                'disabled'  => 'disabled'
-            ));
+            $replyIncrement++;
 
         } // end foreach $replies
 

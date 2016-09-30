@@ -71,9 +71,13 @@ class Ticket_Manager_Block_Adminhtml_Ticket_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn('active', array(
             'header' => $helper->__('Active'),
             'width'     => '50px',
-            'type'   => 'number',
+            'type'   => 'options',
+            'options' => array(
+                '0' => 'No',
+                '1' => 'Yes'
+            ),
             'index'  => 'active',
-            'renderer'  => 'Ticket_Manager_Block_Adminhtml_Ticket_Renderers_Active'
+            'renderer'  => 'Ticket_Manager_Block_Adminhtml_Ticket_Renderers_Grid_Active'
         ));
 
         $this->addExportType('*/*/exportTicketCsv', $helper->__('CSV'));

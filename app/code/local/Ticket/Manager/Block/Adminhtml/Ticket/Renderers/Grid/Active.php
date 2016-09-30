@@ -1,6 +1,6 @@
 <?php
 
-class Ticket_Manager_Block_Adminhtml_Ticket_Renderers_Active
+class Ticket_Manager_Block_Adminhtml_Ticket_Renderers_Grid_Active
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract {
 
 
