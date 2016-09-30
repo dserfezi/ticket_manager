@@ -1,0 +1,27 @@
+<?php
+/**
+ * @category    design
+ * @package     foo
+ */
+?>
+<div class="dashboard">
+
+    <div class="page-title title-buttons">
+        <h1><?php echo $this->__('My Support Dashboard'); ?></h1>
+        <div style="text-align:right;">
+            <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Open New Support Ticket')) ?>" class="button" onclick="window.location='<?php echo $this->getNewTicketUrl() ?>';">
+                <span><?php echo $this->__('Open New Support Ticket') ?></span>
+            </button>
+        </div>
+    </div>
+
+    <?php echo $this->getChildHtml('hello'); ?>
+
+    <div class="box-account box-info">
+        <div class="box-head">
+            <h2><?php echo $this->__('Support Tickets'); ?></h2>
+        </div>
+        <?php echo $this->getChildHtml('list'); ?>
+    </div>
+
+</div>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    design
+ * @package     foo_default
+ */
+-->
+
+<layout>
+    <adminhtml_ticket_view>
+        <reference name="content">
+            <block type="ticket_manager/adminhtml_ticket_edit" name="adminhtml_ticket_edit"/>
+        </reference>
+<!--
+        <reference name="left">
+            <block type="ticket_manager/adminhtml_ticket_view_tabs" name="adminhtml_ticket_view_tabs">
+                <block type="ticket_manager/adminhtml_ticket_view_tab_view" name="adminhtml_ticket_view_tab_view" template="ticket_manager/tab/view.phtml"/>
+            </block>
+        </reference>-->
+    </adminhtml_ticket_view>
+</layout>

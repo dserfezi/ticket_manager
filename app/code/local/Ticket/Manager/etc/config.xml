@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <Ticket_Manager>
+            <version>1.0.1.0</version>
+        </Ticket_Manager>
+    </modules>
+
+
+    <frontend>
+        <routers>
+            <ticket_manager>
+                <use>standard</use>
+                <args>
+                    <module>Ticket_Manager</module>
+                    <frontName>ticket_manager</frontName>
+                </args>
+            </ticket_manager>
+        </routers>
+
+        <translate>
+            <modules>
+                <Ticket_Manager>
+                    <files>
+                        <default>Ticket_Manager.csv</default>
+                    </files>
+                </Ticket_Manager>
+            </modules>
+        </translate>
+
+        <layout>
+            <updates>
+                <manager>
+                    <file>ticket.xml</file>
+                </manager>
+            </updates>
+        </layout>
+    </frontend>
+
+
+    <global>
+        <blocks>
+            <ticket_manager>
+                <class>Ticket_Manager_Block</class>
+            </ticket_manager>
+        </blocks>
+
+        <models>
+            <ticket_manager>
+                <class>Ticket_Manager_Model</class>
+                <resourceModel>ticket_manager_resource</resourceModel>
+            </ticket_manager>
+            <ticket_manager_resource>
+                <class>Ticket_Manager_Model_Resource</class>
+                <entities>
+                    <ticket>
+                        <table>ticket_manager_ticket</table>
+                    </ticket>
+                    <reply>
+                        <table>ticket_manager_reply</table>
+                    </reply>
+                </entities>
+            </ticket_manager_resource>
+        </models>
+
+        <helpers>
+            <ticket_manager>
+                <class>Ticket_Manager_Helper</class>
+            </ticket_manager>
+        </helpers>
+
+        <resources>
+            <ticket_manager_setup>
+                <setup>
+                    <module>Ticket_Manager</module>
+                </setup>
+            </ticket_manager_setup>
+        </resources>
+    </global>
+
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ticket_manager before="Mage_Adminhtml">Ticket_Manager_Adminhtml</ticket_manager>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <ticket_manager>
+                    <file>ticket.xml</file>
+                </ticket_manager>
+            </updates>
+        </layout>
+    </adminhtml>
+
+
+    <!--<stores>
+        <admin>
+            <dev>
+                <debug>
+                    <template_hints>1</template_hints>
+                    <template_hints_blocks>1</template_hints_blocks>
+                </debug>
+            </dev>
+        </admin>
+    </stores>-->
+
+</config>

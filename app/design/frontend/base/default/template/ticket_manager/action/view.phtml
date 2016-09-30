@@ -1,0 +1,78 @@
+<?php
+/**
+ * @category    design
+ * @package     foo
+ */
+?>
+<?php
+/**
+ * View ticket template
+ *
+ * @see Ticket_Manager_Block_Action_Edit
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Ticket Information (%s)', $this->getTicket()->getData('support_id')); ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+
+<div class="page-content">
+    <div class="ticket-subject" style="border-bottom: 1px solid #ededed;">
+        <h2><?php echo Mage::helper('core')->quoteEscape($this->getTicket()->getSubject()); ?></h2>
+        <div style="text-align:right;">
+            <span><?php echo Mage::getSingleton('customer/session')->getCustomer()->getFirstname(); ?></span>
+            <span><?php echo $this->getTicket()->getCreatedAt(); ?></span>
+        </div>
+        <div><?php echo nl2br(Mage::helper('core')->quoteEscape($this->getTicket()->getMessage())); ?></div>
+    </div>
+    <div class="ticket-replies-wrapper">
+        <div class="ticket-replies" style="margin:10px 0 10px 50px;">
+            <?php if($this->getReplies()) : ?>
+                <?php foreach($this->getReplies() as $reply ) : ?>
+                    <div class="ticket-reply" style="border-bottom:1px solid #ededed;margin-bottom:20px;">
+                        <div style="text-align:right;">
+                            <span><?php echo ($reply['owner']) ? 'Admin' : Mage::getSingleton('customer/session')->getCustomer()->getFirstname(); ?></span>
+                            <span><?php echo $reply['created_at']; ?></span>
+                        </div>
+                        <div><?php echo nl2br(Mage::helper('core')->quoteEscape($reply['reply'])); ?></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif ?>
+        </div>
+        <?php if($this->getTicket()->getActive()) : ?>
+            <div class="ticket-new-reply" style="margin:10px 0 10px 50px;">
+                <form action="<?php echo Mage::getUrl('*/reply/save', array('_secure'=>true)); ?>" method="post" id="form-validate">
+                    <div class="fieldset">
+                        <?php echo $this->getBlockHtml('formkey')?>
+                        <ul class="form-list">
+                            <li class="fields">
+                                <div>
+                                    <input type="hidden" name="id" class="js-ticket-id" value="<?php echo ($this->getTicket()) ? $this->getTicket()->getId() : null; ?>">
+                                    <div class="field name-reply">
+                                        <label for="reply" class="required"><em>*</em><?php echo $this->__('Reply to this ticket') ?></label>
+                                        <div class="input-box">
+                                            <textarea id="reply" name="reply" class="input-text required-entry" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Reply')) ?>" class="button js-save-reply"><span><?php echo $this->__('Reply') ?></span></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                </form>
+            </div>
+        <?php endif; ?>
+        <div class="buttons-set">
+            <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getUrl('*/')) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

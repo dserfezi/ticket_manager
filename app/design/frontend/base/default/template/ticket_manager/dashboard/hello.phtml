@@ -1,0 +1,12 @@
+<?php
+/**
+ * @category    design
+ * @package     foo
+ */
+?>
+<div class="welcome-msg">
+    <p class="hello">
+        <strong><?php echo $this->__('Hello, %s!', $this->escapeHtml($this->getCustomer()->getName())) ?></strong>
+    </p>
+    <p><?php echo $this->__('From here you have the ability to view all of your support tickets. Select a support ticket from the list or create a new one.') ?></p>
+</div>

@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<layout version="0.1.0">
+
+    <customer_account translate="label">
+        <reference name="customer_account_navigation">
+            <action method="addLink" module="Manager">
+                <name>support</name>
+                <path>ticket_manager</path>
+                <label>my support</label>
+            </action>
+        </reference>
+    </customer_account>
+
+    <ticket_manager_index_index>
+        <update handle="customer_account"/>
+
+        <reference name="content">
+            <block type="ticket_manager/dashboard" name="dashboard" as="dashboard" template="ticket_manager/dashboard.phtml">
+                <block type="ticket_manager/dashboard" name="dashboard.hello" as="hello" template="ticket_manager/dashboard/hello.phtml"/>
+                <block type="ticket_manager/dashboard_list" name="dashboard.list" as="list" template="ticket_manager/dashboard/list.phtml"/>
+            </block>
+        </reference>
+
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/ticket_manager/ticketList.js</name></action>
+        </reference>
+
+        <remove name="post.list.left"/>
+        <remove name="sale.reorder.sidebar"/>
+        <remove name="catalog.compare.sidebar"/>
+    </ticket_manager_index_index>
+
+    <ticket_manager_ticket_form>
+        <update handle="ticket_manager_index_index"/>
+
+        <reference name="content">
+            <block type="ticket_manager/action_edit" name="edit" as="edit" template="ticket_manager/action/edit.phtml"/>
+        </reference>
+
+        <remove name="dashboard"/>
+    </ticket_manager_ticket_form>
+
+    <ticket_manager_ticket_view>
+        <update handle="ticket_manager_index_index"/>
+
+        <reference name="content">
+            <block type="ticket_manager/action_view" name="view" as="view" template="ticket_manager/action/view.phtml"/>
+        </reference>
+
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/ticket_manager/ticketView.js</name></action>
+        </reference>
+
+        <remove name="dashboard"/>
+    </ticket_manager_ticket_view>
+
+</layout>

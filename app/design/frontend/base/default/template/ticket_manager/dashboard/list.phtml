@@ -1,0 +1,38 @@
+<?php
+/**
+ * @category    design
+ * @package     foo
+ */
+?>
+<?php
+/**
+ * @var $this Ticket_Manager_Block_Dashboard_List
+ */
+?>
+<table class="data-table tickets">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th><?php echo $this->__('Support'); ?> ID</th>
+            <th><?php echo $this->__('Subject'); ?></th>
+            <th><?php echo $this->__('Status'); ?></th>
+            <th><?php echo $this->__('Actions'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->getTickets() as $ticket) : ?>
+            <tr class="<?php echo $ticket['trClass']; ?>">
+                <td><?php echo $ticket['rowCount']; ?></td>
+                <td class="js-ticket-id"><a href="<?php echo $ticket['url']; ?>"><?php echo $this->escapeHtml($ticket['support_id']); ?></a></td>
+                <td><?php echo $this->escapeHtml($ticket['subject']); ?></td>
+                <td class="js-ticket-status" style="color:<?php echo $ticket['active'] ? 'red' : 'green'; ?>"><?php echo $ticket['active'] ? 'Opened' : 'Resolved'; ?></td>
+                <td class="js-ticket-actions">
+                    <?php if($ticket['active']) : ?>
+                    <span style="margin:5px;"><a href="<?php echo $ticket['close']; ?>" class="js-ticket-action" data-action="close" title="Close this ticket">✓</a></span>
+                    <?php endif; ?>
+                    <span style="margin:5px;"><a href="<?php echo $ticket['delete']; ?>" class="js-ticket-action" data-action="delete" title="Delete this ticket">x</a></span>
+                </td>
+             </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
