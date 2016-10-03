@@ -9,6 +9,9 @@
  * @var $this Ticket_Manager_Block_Dashboard_List
  */
 ?>
+
+<?php $_tickets = $this->getTickets();  ?>
+<?php echo $this->getPagerHtml(); ?>
 <table class="data-table tickets">
     <thead>
         <tr>
@@ -20,19 +23,30 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($this->getTickets() as $ticket) : ?>
-            <tr class="<?php echo $ticket['trClass']; ?>">
-                <td><?php echo $ticket['rowCount']; ?></td>
-                <td class="js-ticket-id"><a href="<?php echo $ticket['url']; ?>"><?php echo $this->escapeHtml($ticket['support_id']); ?></a></td>
-                <td><?php echo $this->escapeHtml($ticket['subject']); ?></td>
-                <td class="js-ticket-status" style="color:<?php echo $ticket['active'] ? 'red' : 'green'; ?>"><?php echo $ticket['active'] ? 'Opened' : 'Resolved'; ?></td>
+        <?php $rowCount = 1; ?>
+        <?php foreach ($_tickets as $ticket) : ?>
+            <tr class="<?php echo ($rowCount%2==0) ? 'even' : 'odd'; ?>">
+                <td><?php echo $rowCount; ?></td>
+                <td class="js-ticket-id">
+                    <a href="<?php echo Mage::getUrl('*/ticket/view/id/'.$ticket->getData('entity_id')); ?>">
+                        <?php echo $this->escapeHtml($ticket->getSupportId()); ?>
+                    </a>
+                </td>
+                <td><?php echo $this->escapeHtml($ticket->getSubject()); ?></td>
+                <td class="js-ticket-status" style="color:<?php echo $ticket['active'] ? 'red' : 'green'; ?>"><?php echo $ticket->getActive() ? 'Opened' : 'Resolved'; ?></td>
                 <td class="js-ticket-actions">
                     <?php if($ticket['active']) : ?>
-                    <span style="margin:5px;"><a href="<?php echo $ticket['close']; ?>" class="js-ticket-action" data-action="close" title="Close this ticket">✓</a></span>
+                    <span style="margin:5px;">
+                        <a href="<?php echo Mage::getUrl('*/ticket/close/', array('id' => $ticket->getEntityId())); ?>" class="js-ticket-action" data-action="close" title="Close this ticket">✓</a>
+                    </span>
                     <?php endif; ?>
-                    <span style="margin:5px;"><a href="<?php echo $ticket['delete']; ?>" class="js-ticket-action" data-action="delete" title="Delete this ticket">x</a></span>
+                    <span style="margin:5px;">
+                        <a href="<?php echo Mage::getUrl('*/ticket/delete/', array('id' => $ticket->getEntityId())); ?>" class="js-ticket-action" data-action="delete" title="Delete this ticket">x</a>
+                    </span>
                 </td>
              </tr>
+            <?php $rowCount++; ?>
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php echo $this->getPagerHtml(); ?>

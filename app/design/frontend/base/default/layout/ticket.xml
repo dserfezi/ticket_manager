@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <layout version="0.1.0">
 
+
     <customer_account translate="label">
         <reference name="customer_account_navigation">
             <action method="addLink" module="Manager">
@@ -10,6 +11,7 @@
             </action>
         </reference>
     </customer_account>
+
 
     <ticket_manager_index_index>
         <update handle="customer_account"/>
@@ -30,6 +32,7 @@
         <remove name="catalog.compare.sidebar"/>
     </ticket_manager_index_index>
 
+
     <ticket_manager_ticket_form>
         <update handle="ticket_manager_index_index"/>
 
@@ -39,6 +42,7 @@
 
         <remove name="dashboard"/>
     </ticket_manager_ticket_form>
+
 
     <ticket_manager_ticket_view>
         <update handle="ticket_manager_index_index"/>
@@ -53,5 +57,6 @@
 
         <remove name="dashboard"/>
     </ticket_manager_ticket_view>
+
 
 </layout>
